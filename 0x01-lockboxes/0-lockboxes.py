@@ -2,7 +2,7 @@
 '''Module to return n number of locked boxes'''
 
 def canUnlockAll(boxes):
-     '''
+    '''
     Locked boxes
     Args:
       boxes is a list of lists
