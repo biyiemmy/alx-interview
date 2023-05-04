@@ -6,18 +6,17 @@ def minOperations(n):
     """
     """
 
-    if n < 1:
+    if n <= 1:
         return 0
-    result = 0
-    clipboard = 1
-    while n > 1:
-        if n % clipboard == 0:
-            n //= clipboard
-            result += clipboard
-        else:
-            clipboard += 1
-    if n == 1:
-        result += clipboard
-        return result
-    else:
-        return 0
+
+    # initialize the DP table
+    dp = [float('inf')] * (n + 1)
+    dp[1] = 0
+
+    # fill the DP table
+    for i in range(2, n + 1):
+        for j in range(1, i):
+            if i % j == 0:
+                dp[i] = min(dp[i], dp[j] + (i // j))
+
+    return dp[n]
