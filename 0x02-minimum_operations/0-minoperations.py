@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-function that determines the number of minmum operations given n characters
+function that determines the number of minimum operations given n characters
 """
 
 
