@@ -4,36 +4,42 @@
 
 def validUTF8(data):
     """Determines if a given data set
-    represents a valid utf-8 encoding
+    represents a valid UTF-8 encoding
     """
+
     # Number of bytes in the current UTF-8 character
-    num_bytes = 0
+    number_bytes = 0
 
-    for byte in data:
-        # If we are not inside a UTF-8 character
-        if num_bytes == 0:
-            # Count the number of bytes in the current character
-            if byte >> 7 == 0b0:
-                num_bytes = 1
-            elif byte >> 5 == 0b110:
-                num_bytes = 2
-            elif byte >> 4 == 0b1110:
-                num_bytes = 3
-            elif byte >> 3 == 0b11110:
-                num_bytes = 4
-            else:
+    # Bit masks for UTF-8 byte validation
+    mask_1 = 1 << 7
+    mask_2 = 1 << 6
+
+    for i in data:
+        mask_byte = 1 << 7
+
+        if number_bytes == 0:
+            # Determine the number of bytes in the current UTF-8 character
+            while mask_byte & i:
+                number_bytes += 1
+                mask_byte = mask_byte >> 1
+
+            if number_bytes == 0:
+                continue
+
+            # Check for invalid number of bytes
+            if number_bytes == 1 or number_bytes > 4:
                 return False
+
         else:
-            # Check if the current byte follows the format 10xxxxxx
-            if byte >> 6 != 0b10:
+            # Check if the byte follows the format 10xxxxxx
+            if not (i & mask_1 and not (i & mask_2)):
                 return False
 
-        # Decrement the number of expected bytes
-        num_bytes -= 1
+        number_bytes -= 1
 
-        # If there are negative bytes or incomplete UTF-8 character
-        if num_bytes < 0:
-            return False
+    # If all bytes have been processed and there are
+    # no remaining incomplete UTF-8 characters
+    if number_bytes == 0:
+        return True
 
-    # If there are remaining bytes or incomplete UTF-8 character
-    return num_bytes == 0
+    return False
