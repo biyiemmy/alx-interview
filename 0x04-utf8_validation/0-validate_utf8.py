@@ -10,9 +10,9 @@ def validUTF8(data):
     num_bytes = 0
 
     for byte in data:
-        # Check if the current byte is the start of a new UTF-8 character
+        # If we are not inside a UTF-8 character
         if num_bytes == 0:
-            # Determine the number of bytes based on the most significant bits
+            # Count the number of bytes in the current character
             if byte >> 7 == 0b0:
                 num_bytes = 1
             elif byte >> 5 == 0b110:
