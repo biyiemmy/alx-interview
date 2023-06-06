@@ -6,7 +6,7 @@ Main file - rotate_2d_matrix(matrix)
 
 def rotate_2d_matrix(matrix):
     """
-    function an n x n 2D matrix, 
+    function an n x n 2D matrix,
     rotate it 90 degrees clockwise.
     """
     n = len(matrix)
