@@ -6,7 +6,7 @@ Main file - 0-making_change.py
 
 def makeChange(coins, total):
     """
-    function Given a pile of coins of different values,
+    Given a pile of coins of different values,
     determine the fewest number of coins needed to meet
     a given amount total.
     """
@@ -24,8 +24,8 @@ def makeChange(coins, total):
                 # by taking the minimum of the previous fewest coins needed
                 # for i and the fewest coins needed for i - coin plus 1
                 # (since we are using one coin)
-                minimum_coins[i] = min(minimum_coins[i],
-                                       minimum_coins[i - coin] + 1)
+                minimum_coins[i] = min(
+                    minimum_coins[i], minimum_coins[i - coin] + 1)
 
     if minimum_coins[total] == float('inf'):
         # if the fewest coins needed for the total is still infinity,
